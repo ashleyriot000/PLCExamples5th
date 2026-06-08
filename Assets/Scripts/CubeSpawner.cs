@@ -1,0 +1,28 @@
+using UnityEngine;
+
+public class CubeSpawner : MonoBehaviour
+{
+    public GameObject[] prefabs;               //주기적으로 생성할 게임오브젝트
+    public Transform spawnPosition;         //생성 위치
+    public float startSpawnTime = 3f;       //활성화시 처음 생성되기까지 걸리는 시간.
+    public float spawnInterval = 2.5f;      //생성 인터벌
+    private float nextSpawnTime;            //다음 생성 타임
+
+    private void Start()
+    {
+        nextSpawnTime = Time.time + startSpawnTime;
+    }
+
+
+    private void Update()
+    {
+        if(nextSpawnTime < Time.time)
+        {
+            nextSpawnTime = Time.time + spawnInterval;
+            //Instantiate함수 => 동적으로 지정된 게임오브젝트를 씬에 생성하는 함수.
+            GameObject nextCube = 
+                Instantiate<GameObject>(
+                    prefabs[Random.Range(0, prefabs.Length)], spawnPosition.position, spawnPosition.rotation, spawnPosition);
+        }
+    }
+}
