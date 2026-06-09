@@ -4,21 +4,23 @@ using UnityEngine.Events;
 
 public class OpticalSensor : MonoBehaviour
 {
-    public LineRenderer lineRenderer;           //게임뷰에서 레이저가 보이도록 하기 위한 라인 렌더러
-    public Material greenLine;                  //감지안될 때 사용할 메터리얼
-    public Material redLine;                    //감지될 때 사용할 메터리얼
+    [Header("감지 조건")]
     public LayerMask detectableLayer;           //감지 가능한 레이어
     public string detectableTag;                //감지 가능한 태그
     public string detectableName;               //감지 가능한 이름
     public float detectableDistance = 0.5f;     //감지 거리
 
+    [Header("선택사항")]
+    public float lineWidth = 0.01f;             //레이저 굵기
+    public Material greenLine;                  //감지안될 때 사용할 메터리얼
+    public Material redLine;                    //감지될 때 사용할 메터리얼
 
+    private LineRenderer lineRenderer;          //Game뷰에서 레이저가 보이게 하고 싶으면 LineRenderer 추가해놓기.
     public UnityEvent<bool> onChangedDetected;  //감지 변화에 대한 콜백함수들을 담는 델리게이트
-
-    private bool hasDetected;           //감지 여부
-    private Vector3 detectedPoint;      //감지 위치
+    private Vector3 detectedPoint;              //감지 위치
 
     //감지 결과에 따른 프로퍼티
+    private bool hasDetected;
     public bool HasDetected
     {
         get => hasDetected;
@@ -39,11 +41,9 @@ public class OpticalSensor : MonoBehaviour
     {
         //시작할 때 라인렌더러 있는지 확인
         lineRenderer = GetComponent<LineRenderer>();
-        //없으면 새로 추가해서 넣는다.
-        if(lineRenderer == null)
-        {
-            lineRenderer = gameObject.AddComponent<LineRenderer>();
-        }
+        //라인 렌더러가 없으면 밑에 코드 무시.
+        if (lineRenderer == null)
+            return;
 
         //라인의 위치를 로컬 축에 맞춘다.
         lineRenderer.useWorldSpace = true;
@@ -52,6 +52,8 @@ public class OpticalSensor : MonoBehaviour
             transform.position, transform.position + transform.forward * detectableDistance
         });
         lineRenderer.material = greenLine;
+        lineRenderer.startWidth = lineWidth;
+        lineRenderer.endWidth = lineWidth;
     }
 
 
@@ -115,6 +117,22 @@ public class OpticalSensor : MonoBehaviour
             Handles.color = Color.green;
             Handles.DrawLine(transform.position, transform.position + transform.forward * detectableDistance);
         }        
+    }
+
+
+    private void OnValidate()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+        if (lineRenderer == null)
+            return;
+
+        //라인의 위치를 로컬 축에 맞춘다.
+        lineRenderer.SetPositions(new Vector3[2]
+        {
+            transform.position, transform.position + transform.forward * detectableDistance
+        });
+        lineRenderer.startWidth = lineWidth;
+        lineRenderer.endWidth = lineWidth;
     }
 #endif
 }
