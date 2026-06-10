@@ -130,5 +130,23 @@ public class InverterController : MonoBehaviour
         //초당 회전 각도를 적용하기.
         shaft.angularVelocity = rotateAxis * radPerSec;
     }
+
+    //지령 주파수 설정하는 함수
+    public void ChangeFrequency(float frequency)
+    {
+        if (frequency < 0f)
+        {
+            targetHz = 0f;
+            return;
+        }
+
+        if(frequency > maxFrequency)
+        {
+            targetHz = maxFrequency;
+            return;
+        }
+
+        targetHz = frequency;
+    }
 }
         
