@@ -63,6 +63,7 @@ public class ServoAmp : MonoBehaviour
     public int currentPulse;
 
     public UnityEvent<int> onChangedPulse;          //펄스값이 변경되면 변경된 값을 받을 콜백함수를 담는 델리게이트
+    public UnityEvent<float> onChangedPos;          //위치결정값이 변경되면 변경된 값을 받을 콜백함수를 담는 델리게이트
     public UnityEvent<bool> onChangedReady;         //준비 상태값이 변경되면 그 값을 받을 콜백함수를 담는 델리게이트
     public UnityEvent<bool> onChangedError;         //에러 상태값이 변경되면 그 값을 받을 콜백함수를 담는 델리게이트
     public UnityEvent<bool> onChangedBusy;          //명령 수행 상태값이 변경되면 그 값을 받을 함수들을 담는 델리게이트
@@ -71,13 +72,26 @@ public class ServoAmp : MonoBehaviour
     public int GetCurrentPulse
     {
         get => currentPulse;
-        set
+        private set
         {
             if (currentPulse == value)
                 return;
 
             currentPulse = value;
             onChangedPulse?.Invoke(value);
+        }
+    }
+    //현재 위치결정값을 확인 혹은 변경하는 프로퍼티
+    public float GetCurrentUnit
+    {
+        get => currentPos_Unit;
+        private set
+        {
+            if (currentPulse == value)
+                return;
+
+            currentPos_Unit = value;
+            onChangedPos?.Invoke(value);
         }
     }
 
@@ -154,6 +168,11 @@ public class ServoAmp : MonoBehaviour
         }
     }
 
+    public bool IsJogging
+    {
+        get => cmd_JogFoward || cmd_JogReverse;
+    }
+
     //받은 지령 명령을 저장하는 내부 변수
     private bool cmd_ServoOn = false;           //서보 모터에 전원을 켜라는 명령 저장
     private bool cmd_StartPos = false;          //지정 위치로 이동하라는 명령 저장
@@ -179,6 +198,10 @@ public class ServoAmp : MonoBehaviour
     {
         joint = GetComponent<ConfigurableJoint>();
         rb = GetComponent<Rigidbody>();
+        rb.automaticCenterOfMass = false;
+        rb.automaticInertiaTensor = false;
+        rb.linearDamping = 35f;
+
 
         //시작 위치를 계산
         float startPos = (ampType == AmpType.Linear) ?
@@ -283,8 +306,16 @@ public class ServoAmp : MonoBehaviour
     public void ServoOn(bool isOn)
     {
         if(cmd_ServoOn = isOn)
-        {
-            homeOffset_Unit = 0f;
+        {   
+            //시작 위치를 계산
+            float startPos = (ampType == AmpType.Linear) ?
+                -transform.localPosition.x * 1000.0f : transform.localRotation.eulerAngles.x;
+
+            currentPulse = PhysToPulse(startPos);
+            internalTarget_Unit = PulseToUnit(currentPulse);
+            homeOffset_Unit = internalTarget_Unit;
+
+            ApplyPhysics(internalTarget_Unit);
         }
         else
         {
@@ -317,7 +348,7 @@ public class ServoAmp : MonoBehaviour
         if (!IsReady || IsBusy)
             return;
 
-        cmd_JogFoward = true;
+        cmd_JogFoward = isOn;
     }
     //수동 후퇴 이동 함수
     public void JogReverse(bool isOn)
@@ -325,7 +356,7 @@ public class ServoAmp : MonoBehaviour
         if (!IsReady || IsBusy)
             return;
 
-        cmd_JogReverse = true;
+        cmd_JogReverse = isOn;
     }
 
     //원점 복귀 함수
@@ -343,6 +374,7 @@ public class ServoAmp : MonoBehaviour
         if(IsError)
         {
             IsError = false;
+            IsBusy = false;
             //다시 대기 모드로 전환.
             currentState = AmpState.Idle;
 
@@ -462,17 +494,95 @@ public class ServoAmp : MonoBehaviour
                 }
                 break;
             case AmpState.Homing_Search:
+                //원점을 모르는 상태 -> 찾아다녀야 함.
+                targetVelocity = homingHighSpeed * homingDir;       //설정된 방향으로 원점복귀 고속상태로 이동
+
+                //근점 도그가 감지되면
+                if(isOnProximityDOG)
+                {
+                    currentState = AmpState.Homing_Creep;           //저속모드로 변환해 원점을 정확하게 찾는다.
+                    homingHitDog = true;
+                }
+                else if((homingDir == -1 && isOnLimitSensorNegative) || (homingDir == 1) && isOnLimitSensorPositive)
+                {
+                    currentVelocity_Unit = 0f;
+                    homingDir = -homingDir;
+                    currentState = AmpState.Homing_Retry;
+                }
                 break;
             case AmpState.Homing_Retry:
+                targetVelocity = homingHighSpeed * homingDir;
+                if(isOnProximityDOG)
+                {
+                    currentState = AmpState.Homing_Creep;
+                    homingHitDog = true;
+                }
                 break;
             case AmpState.Homing_Creep:
+                targetVelocity = homingCreepSpeed * defaultHomingDirection; 
+
+                if(!isOnProximityDOG && homingHitDog)
+                {
+                    CompletedHoming();
+                    targetVelocity = 0f;
+                }
                 break;
             case AmpState.Error:
+                targetVelocity = 0f;
                 break;
         }
+
+
+        bool isHoming =
+            (currentState == AmpState.Homing_Search) ||
+            (currentState == AmpState.Homing_Retry) ||
+            (currentState == AmpState.Homing_Creep);
+
+        //정방향으로 이동중인데 상한 리미트 센서가 감지되면
+        if(isOnLimitSensorPositive && targetVelocity > 0f)
+        {
+            //정지시키고
+            targetVelocity = 0f;
+            //원점 복귀중이 아니면
+            if(!isHoming)
+            {
+                IsError = true;
+                IsBusy = false;
+                currentState = AmpState.Error;
+            }
+        }
+        //역방향으로 이동중인데 하한 리미트 센서에 감지되면
+        if (isOnLimitSensorNegative && targetVelocity < 0f)
+        {
+            //정지시키고
+            targetVelocity = 0f;
+            //원점 복귀중이 아니면
+            if (!isHoming)
+            {
+                IsError = true;
+                IsBusy = false;
+                currentState = AmpState.Error;
+            }
+        }
+
+        //가감속 적용하기
+        //공식 : 현재 속도 => 이전 속도 + (가속도 * 시간)
+        float referenceSpeed = (currentState == AmpState.Jogging) ? jogSpeed : maxSpeed;
+        float accelRate = referenceSpeed / (accelTime * 0.001f); //초당 속도 변화량
+        //현재 초당 이동 속도
+        currentVelocity_Unit = Mathf.MoveTowards(currentVelocity_Unit, targetVelocity, accelRate * Time.fixedDeltaTime);
+
+        //위치 적분
+        internalTarget_Unit += currentVelocity_Unit * Time.fixedDeltaTime;
+
+        //실제 유니티상의 물리적인 위치로 보내기
+        ApplyPhysics(internalTarget_Unit);
+
+        GetCurrentUnit = internalTarget_Unit - homeOffset_Unit;
+
+        //현재 물리 위치를 펄스로 변환해서 모니터링해서 확인할 수 있도록 값 적용.
+        GetCurrentPulse = PhysToPulse(internalTarget_Unit);
     }
-
-
 
 
 

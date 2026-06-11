@@ -36,6 +36,6 @@ public class CartesianRobotSpeaker : MonoBehaviour
 
     void Update()
     {
-        IsBusy = amp.IsBusy;
+        IsBusy = amp.IsBusy || amp.IsJogging;
     }
 }
