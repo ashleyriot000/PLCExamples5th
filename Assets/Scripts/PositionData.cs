@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class PositionData : MonoBehaviour
 {
+    public PositioningManager manager;
     public ServoAmp axis1;
     public ServoAmp axis2;
     public ServoAmp axis3;
@@ -37,6 +38,9 @@ public class PositionData : MonoBehaviour
     //삭제될 때 호출되는 함수
     public void Delete(bool removeData)
     {
+        if (removeData)
+            manager.RemoveData(this);
+
         Destroy(gameObject);
     }
 

@@ -330,6 +330,7 @@ public class ServoAmp : MonoBehaviour
             cmd_JogFoward = false;
             cmd_JogReverse = false;
             cmd_TargetPulse = 0;
+            currentState = AmpState.Idle;
         }
     }
     //해당 위치로 이동 함수
