@@ -6,7 +6,9 @@ public class CubeSpawner : MonoBehaviour
     public Transform spawnPosition;         //생성 위치
     public float startSpawnTime = 3f;       //활성화시 처음 생성되기까지 걸리는 시간.
     public float spawnInterval = 2.5f;      //생성 인터벌
+    public int maxCount = 0;              //최대 생성 카운트, 0이면 무한
     private float nextSpawnTime;            //다음 생성 타임
+    private int currentCount;
 
     private void Start()
     {
@@ -16,6 +18,10 @@ public class CubeSpawner : MonoBehaviour
 
     private void Update()
     {
+        //최대 카운트가 0보다 큰데, 현재 생성갯수가 최대생성갯수보다 같거나 클때
+        if (maxCount > 0 && currentCount >= maxCount)
+            return;
+
         if(nextSpawnTime < Time.time)
         {
             nextSpawnTime = Time.time + spawnInterval;
@@ -23,6 +29,8 @@ public class CubeSpawner : MonoBehaviour
             GameObject nextCube = 
                 Instantiate<GameObject>(
                     prefabs[Random.Range(0, prefabs.Length)], spawnPosition.position, spawnPosition.rotation, spawnPosition);
+
+            currentCount++;
         }
     }
 }
