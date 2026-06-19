@@ -425,6 +425,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 505702790}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &727112038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 727112040}
+  - component: {fileID: 727112039}
+  m_Layer: 0
+  m_Name: Requester
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &727112039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727112038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f7c8ffef7e50b64a8c14b114217765b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MXRequester
+  _interval: 50
+  _capacity: 100
+  _stationNumber: 1
+  _password: 
+  _useAutoConnect: 1
+  _deviceList: []
+  _addressList: []
+--- !u!4 &727112040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727112038}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.56568, y: 0.46319, z: -0.00691}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &763737657 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1173075203826461396, guid: c4448515fe07b094f8c1247c347becaa, type: 3}
@@ -478,6 +529,35 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.4910002, y: 0.05327034, z: 1.587596}
   m_Center: {x: 0, y: 0.01, z: 0}
+--- !u!114 &763737666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763737657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 395912c5f2a73954b89876e96b02acc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConveyorConnector
+  controller: {fileID: 763737661}
+  forward:
+    useDevice: 1
+    useDoubleWord: 0
+    isLocked: 1
+    label: 
+    address: Y10
+    description: 
+    comment: 
+  reverse:
+    useDevice: 1
+    useDoubleWord: 0
+    isLocked: 1
+    label: 
+    address: Y11
+    description: 
+    comment: 
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,6 +929,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1173075203826461396, guid: c4448515fe07b094f8c1247c347becaa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 763737661}
+    - targetCorrespondingSourceObject: {fileID: 1173075203826461396, guid: c4448515fe07b094f8c1247c347becaa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 763737666}
   m_SourcePrefab: {fileID: 100100000, guid: c4448515fe07b094f8c1247c347becaa, type: 3}
 --- !u!1 &1470642610
 GameObject:
@@ -861,6 +944,7 @@ GameObject:
   - component: {fileID: 1470642613}
   - component: {fileID: 1470642612}
   - component: {fileID: 1470642611}
+  - component: {fileID: 1470642614}
   m_Layer: 0
   m_Name: OpticalSensor (1)
   m_TagString: Untagged
@@ -1011,9 +1095,9 @@ MonoBehaviour:
   onChangedDetected:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1992869047}
-        m_TargetAssemblyTypeName: PLCReaderForConveyor, Assembly-CSharp
-        m_MethodName: set_IsOnDetectedX11
+      - m_Target: {fileID: 1470642614}
+        m_TargetAssemblyTypeName: MXInputModule, Assembly-CSharp
+        m_MethodName: OnChangeValue
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1038,6 +1122,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1470642614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470642610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26ec91a4cd8a5b64a94fd3f88fe09fc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MXInputModule
+  address:
+    useDevice: 1
+    useDoubleWord: 0
+    isLocked: 1
+    label: 
+    address: X11
+    description: 
+    comment: 
+  needCallback: 0
 --- !u!1 &1516501722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,6 +1154,7 @@ GameObject:
   - component: {fileID: 1516501725}
   - component: {fileID: 1516501724}
   - component: {fileID: 1516501723}
+  - component: {fileID: 1516501726}
   m_Layer: 0
   m_Name: OpticalSensor
   m_TagString: Untagged
@@ -1199,9 +1305,9 @@ MonoBehaviour:
   onChangedDetected:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1992869047}
-        m_TargetAssemblyTypeName: PLCReaderForConveyor, Assembly-CSharp
-        m_MethodName: set_IsOnDetectedX10
+      - m_Target: {fileID: 1516501726}
+        m_TargetAssemblyTypeName: MXInputModule, Assembly-CSharp
+        m_MethodName: OnChangeValue
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1226,80 +1332,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1992869046
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1992869048}
-  - component: {fileID: 1992869047}
-  m_Layer: 0
-  m_Name: Reader
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1992869047
+--- !u!114 &1516501726
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1992869046}
+  m_GameObject: {fileID: 1516501722}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 736c43f6f02b1784382bbf81aefc2574, type: 3}
+  m_Script: {fileID: 11500000, guid: 26ec91a4cd8a5b64a94fd3f88fe09fc8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PLCReaderForConveyor
-  onChangedForward:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 763737661}
-        m_TargetAssemblyTypeName: ConveyorController, Assembly-CSharp
-        m_MethodName: set_IsOnForward
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onChangedReverse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 763737661}
-        m_TargetAssemblyTypeName: ConveyorController, Assembly-CSharp
-        m_MethodName: set_IsOnReverse
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!4 &1992869048
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1992869046}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.06265, y: 0.46319, z: 0.04102}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::MXInputModule
+  address:
+    useDevice: 1
+    useDoubleWord: 0
+    isLocked: 1
+    label: 
+    address: X10
+    description: 
+    comment: 
+  needCallback: 0
 --- !u!1 &2022916611
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,7 +1385,7 @@ MonoBehaviour:
   prefabs:
   - {fileID: 887830749504317518, guid: ef36c7242900b7349a08acb3332e323e, type: 3}
   spawnPosition: {fileID: 2022916613}
-  startSpawnTime: 10
+  startSpawnTime: 5
   spawnInterval: 2.5
   maxCount: 5
 --- !u!4 &2022916613
@@ -1424,7 +1477,7 @@ SceneRoots:
   - {fileID: 1239738583}
   - {fileID: 604712594}
   - {fileID: 505702790}
-  - {fileID: 1992869048}
   - {fileID: 2022916613}
   - {fileID: 1516501725}
   - {fileID: 1470642613}
+  - {fileID: 727112040}
