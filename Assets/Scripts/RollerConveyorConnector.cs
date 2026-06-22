@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RollerConveyorConnector : MXObject
 {
@@ -26,9 +27,11 @@ public class RollerConveyorConnector : MXObject
                 return;
 
             isOnForward = value;
+            onChangedForward?.Invoke(value);
             CalculateTargetSpeed(isOnForward, isOnReverse);
         }
     }
+    public UnityEvent<bool> onChangedForward;
 
     private bool isOnReverse;
     public bool IsOnReverse
@@ -40,9 +43,11 @@ public class RollerConveyorConnector : MXObject
                 return;
 
             isOnReverse = value;
+            onChangedReverse?.Invoke(value);
             CalculateTargetSpeed(isOnForward, isOnReverse);
         }
     }
+    public UnityEvent<bool> onChangedReverse;
 
     private void Start()
     {
