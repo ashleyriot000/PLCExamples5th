@@ -106,6 +106,8 @@ public class ConveyorController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+
+        Debug.Log($"{other.gameObject.name} => {other.attachedRigidbody}");
         //허용된 레이어가 아닐 경우 무시해라
         if ((movableLayer.value & 1 << other.gameObject.layer) == 0)
             return;
