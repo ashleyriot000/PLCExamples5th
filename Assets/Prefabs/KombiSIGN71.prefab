@@ -1,0 +1,263 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &9081922339652112894
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -9006997520676326985, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8c8ee7329e543bd4e913ca3da56b3010, type: 2}
+    - target: {fileID: -8679921383154817045, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7852619261660361915, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: m_Name
+      value: GREEN
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f0e3ad251c46ae343b4beb0e3ba16959, type: 2}
+    - target: {fileID: -5491151017008764842, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: m_Name
+      value: RED
+      objectReference: {fileID: 0}
+    - target: {fileID: -3614653653338279030, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f0e3ad251c46ae343b4beb0e3ba16959, type: 2}
+    - target: {fileID: -2936606190431501520, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: m_Name
+      value: YELLOW
+      objectReference: {fileID: 0}
+    - target: {fileID: -2697805268834756629, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6ec84e25c18bfd94e865e8a368d7aeff, type: 2}
+    - target: {fileID: -2690365729462508841, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 800c6d241271787409e966c48daffaeb, type: 2}
+    - target: {fileID: 919132149155446097, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: m_Name
+      value: KombiSIGN71
+      objectReference: {fileID: 0}
+    - target: {fileID: 4564257490080662651, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 335639ec867395e418bdde69c3dc4b8f, type: 2}
+    - target: {fileID: 5883359453361920614, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ecf8aa1b27743254fa9a2a2d795d2753, type: 2}
+    - target: {fileID: 7099661847396437373, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f0e3ad251c46ae343b4beb0e3ba16959, type: 2}
+    - target: {fileID: 7222239767955421368, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 84b890e8e360bd54992f8e735d6b1dde, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -7852619261660361915, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 871121623740276111}
+    - targetCorrespondingSourceObject: {fileID: -7852619261660361915, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4297592443818301176}
+    - targetCorrespondingSourceObject: {fileID: -2936606190431501520, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 882094800574172507}
+    - targetCorrespondingSourceObject: {fileID: -2936606190431501520, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6920161533880622016}
+    - targetCorrespondingSourceObject: {fileID: -5491151017008764842, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5167018532592437174}
+    - targetCorrespondingSourceObject: {fileID: -5491151017008764842, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4927290913536495371}
+  m_SourcePrefab: {fileID: 100100000, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+--- !u!1 &2969679774952723150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2936606190431501520, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+  m_PrefabInstance: {fileID: 9081922339652112894}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &882094800574172507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2969679774952723150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a9f3187b520c94982f7a3969c691bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SignController
+  meshRenderer: {fileID: 0}
+  onChangedPower:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6920161533880622016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2969679774952723150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9dad9bf6c1bab24799cf37a40e27474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LampConnector
+  controller: {fileID: 882094800574172507}
+  device:
+    useDevice: 1
+    useDoubleWord: 0
+    isLocked: 1
+    label: 
+    address: Y11
+    description: 
+    comment: 
+--- !u!1 &5603316871262435752 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5491151017008764842, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+  m_PrefabInstance: {fileID: 9081922339652112894}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5167018532592437174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5603316871262435752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a9f3187b520c94982f7a3969c691bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SignController
+  meshRenderer: {fileID: 0}
+  onChangedPower:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
+        m_MethodName: set_isOn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4927290913536495371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5603316871262435752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9dad9bf6c1bab24799cf37a40e27474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LampConnector
+  controller: {fileID: 5167018532592437174}
+  device:
+    useDevice: 1
+    useDoubleWord: 0
+    isLocked: 1
+    label: 
+    address: Y12
+    description: 
+    comment: 
+--- !u!1 &7857827373184326331 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7852619261660361915, guid: df36bd2b1d749b0498fe229f9b21a6a6, type: 3}
+  m_PrefabInstance: {fileID: 9081922339652112894}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &871121623740276111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7857827373184326331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a9f3187b520c94982f7a3969c691bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SignController
+  meshRenderer: {fileID: 0}
+  onChangedPower:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4297592443818301176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7857827373184326331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9dad9bf6c1bab24799cf37a40e27474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LampConnector
+  controller: {fileID: 871121623740276111}
+  device:
+    useDevice: 1
+    useDoubleWord: 0
+    isLocked: 1
+    label: 
+    address: Y10
+    description: 
+    comment: 

@@ -42,6 +42,7 @@ public class CubeSpawner : MonoBehaviour
             return;
 
         triggerList.Add(other);
+        Debug.Log($"Add : {other.gameObject.name}");
     }
 
     private void OnTriggerExit(Collider other)
@@ -50,5 +51,6 @@ public class CubeSpawner : MonoBehaviour
             return;
 
         triggerList.Remove(other);
+        Debug.Log($"Remove : {other.gameObject.name}");
     }
 }
