@@ -1594,7 +1594,6 @@ GameObject:
   - component: {fileID: 776408401}
   - component: {fileID: 776408400}
   - component: {fileID: 776408399}
-  - component: {fileID: 776408398}
   m_Layer: 5
   m_Name: Button_Clear
   m_TagString: Untagged
@@ -1622,27 +1621,6 @@ RectTransform:
   m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &776408398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 776408396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26ec91a4cd8a5b64a94fd3f88fe09fc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MXInputModule
-  address:
-    useDevice: 1
-    useDoubleWord: 0
-    isLocked: 1
-    label: 
-    address: X00
-    description: 
-    comment: 
-  needCallback: 0
 --- !u!114 &776408399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1660,7 +1638,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 776408398}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: MXInputModule, Assembly-CSharp
           m_MethodName: OnChangeValue
           m_Mode: 6
@@ -1676,7 +1654,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 776408398}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: MXInputModule, Assembly-CSharp
           m_MethodName: OnChangeValue
           m_Mode: 6
@@ -1732,20 +1710,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 161746321}
-        m_TargetAssemblyTypeName: CubeSpawner, Assembly-CSharp
-        m_MethodName: Clear
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 446082106}
-        m_TargetAssemblyTypeName: CubeSpawner, Assembly-CSharp
+      - m_Target: {fileID: 2074158878}
+        m_TargetAssemblyTypeName: ClearManager, Assembly-CSharp
         m_MethodName: Clear
         m_Mode: 1
         m_Arguments:
@@ -3710,6 +3676,7 @@ GameObject:
   - component: {fileID: 2074158876}
   - component: {fileID: 2074158875}
   - component: {fileID: 2074158874}
+  - component: {fileID: 2074158878}
   m_Layer: 0
   m_Name: "\uB6AB\uC5B4\uBEE5"
   m_TagString: Untagged
@@ -3810,6 +3777,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2074158878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074158873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e818fa3a3b13d53429ded843fc66f178, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClearManager
+  triggerList: []
 --- !u!1 &2116198337
 GameObject:
   m_ObjectHideFlags: 0
