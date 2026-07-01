@@ -30,7 +30,8 @@ public class ServoAmp : MonoBehaviour
         Homing_Search,
         Homing_Retry,
         Homing_Creep,
-        Error
+        Error,
+        Stop
     }
 
     [Header("[1] 기구 및 단위 설정")]
@@ -67,6 +68,8 @@ public class ServoAmp : MonoBehaviour
     public UnityEvent<bool> onChangedReady;         //준비 상태값이 변경되면 그 값을 받을 콜백함수를 담는 델리게이트
     public UnityEvent<bool> onChangedError;         //에러 상태값이 변경되면 그 값을 받을 콜백함수를 담는 델리게이트
     public UnityEvent<bool> onChangedBusy;          //명령 수행 상태값이 변경되면 그 값을 받을 함수들을 담는 델리게이트
+    public UnityEvent<bool> onChangedStop;          //정지 신호 상태값이 변경되면 그 값을 받을 함수들을 담는 델리게이트
+    public UnityEvent onCompletedPositioning;       //위치결정완료할 때 콜백함수를 담는 델리게이트
 
     //현재 펄스값을 확인 혹은 변경하는 프로퍼티
     public int GetCurrentPulse
@@ -123,7 +126,7 @@ public class ServoAmp : MonoBehaviour
     public bool inPosition = false;                 //명령 수행 완료 여부
     public bool isError = false;                    //에러 경고
     public bool opr_Complete = false;               //원점 찾은 상태 여부
-
+    public bool isStopped = false;                  //정지 상태 여부
 
     //각 상태에 대한 프로퍼티
     public bool IsReady
@@ -135,7 +138,11 @@ public class ServoAmp : MonoBehaviour
             if (isReady == value)
                 return;
 
-            isReady = value;
+            if (isReady = value)
+                SetJointForce(100000f);
+            else
+                SetJointForce(0f);
+
             onChangedReady?.Invoke(value);
         }
     }
@@ -171,6 +178,32 @@ public class ServoAmp : MonoBehaviour
     public bool IsJogging
     {
         get => cmd_JogFoward || cmd_JogReverse;
+    }
+
+    public bool IsStopped
+    {
+        get => isStopped;
+
+        set
+        {
+            if (isStopped == value)
+                return;
+
+            if (isStopped = value)
+            {
+                currentState = AmpState.Stop;
+                cmd_StartPos = false;
+                cmd_StartOPR = false;
+                cmd_JogFoward = false;
+                cmd_JogReverse = false;
+                inPosition = false;
+                IsBusy = false;
+            }
+            else
+                currentState = AmpState.Idle;
+
+            onChangedStop?.Invoke(value);
+        }
     }
 
     //받은 지령 명령을 저장하는 내부 변수
@@ -336,8 +369,14 @@ public class ServoAmp : MonoBehaviour
     //해당 위치로 이동 함수
     public void Positioning(int pulse)
     {
-        if (!IsReady || IsBusy)
+        if (!IsReady || IsStopped || IsError)
             return;
+
+        if(IsBusy)
+        {
+            IsError = true;
+            return;
+        }
 
         cmd_TargetPulse = pulse;
         cmd_StartPos = true;
@@ -346,16 +385,28 @@ public class ServoAmp : MonoBehaviour
     //수동 전진 이동 함수
     public void JogForward(bool isOn)
     {
-        if (!IsReady || IsBusy)
+        if (!IsReady || IsStopped || IsError)
             return;
+
+        if(isOn && IsBusy)
+        {
+            IsError = true;
+            return;
+        }
 
         cmd_JogFoward = isOn;
     }
     //수동 후퇴 이동 함수
     public void JogReverse(bool isOn)
     {
-        if (!IsReady || IsBusy)
+        if (!IsReady || IsStopped || IsError)
             return;
+
+        if (isOn && IsBusy)
+        {
+            IsError = true;
+            return;
+        }
 
         cmd_JogReverse = isOn;
     }
@@ -363,8 +414,14 @@ public class ServoAmp : MonoBehaviour
     //원점 복귀 함수
     public void Homing()
     {
-        if (!IsReady || IsBusy)
+        if (!IsReady || IsStopped || IsError)
             return;
+
+        if (IsBusy)
+        {
+            IsError = true;
+            return;
+        }
 
         cmd_StartOPR = true;
     }
@@ -377,7 +434,8 @@ public class ServoAmp : MonoBehaviour
             IsError = false;
             IsBusy = false;
             //다시 대기 모드로 전환.
-            currentState = AmpState.Idle;
+            if (currentState != AmpState.Stop)
+                currentState = AmpState.Idle;
 
             cmd_StartOPR = false;
             cmd_JogFoward = false;
@@ -392,20 +450,14 @@ public class ServoAmp : MonoBehaviour
         if (joint == null)
             return;
 
-        if(!cmd_ServoOn && !IsError)
+        if(!cmd_ServoOn)
         {
             IsReady = false;
             currentPos_Unit = 0f;
-
-            //모터에 토크를 제거함.
-            SetJointForce(0);
-
             return;
         }
 
         IsReady = true;
-        //모터에 토크를 적용함.
-        SetJointForce(100000f);
 
         bool isRisingEdge_OPR = (cmd_StartOPR && !cmd_Prev_StartOPR);
         cmd_Prev_StartOPR = cmd_StartOPR;
@@ -469,6 +521,7 @@ public class ServoAmp : MonoBehaviour
                     inPosition = true;
                     cmd_StartPos = false;
                     currentState = AmpState.Idle;
+                    onCompletedPositioning?.Invoke();
                 }
                 else
                 {
@@ -528,7 +581,7 @@ public class ServoAmp : MonoBehaviour
                     targetVelocity = 0f;
                 }
                 break;
-            case AmpState.Error:
+            case AmpState.Stop:
                 targetVelocity = 0f;
                 break;
         }
