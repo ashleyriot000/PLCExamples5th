@@ -6,9 +6,9 @@ public class ACMotorController : MonoBehaviour
     public Rigidbody rb;            //회전 저항 수정하기 위해 필요.
 
     public Vector3 torqueAxis = Vector3.forward;    //회전축 방향 설정값
-    public float targetVelocity = 60f;              //초당 목표 회전속도
-    public float torque = 1f;                       //토크값
-    public float damping = 0.01f;                   //회전 저항값
+    [Delayed] public float targetVelocity = 60f;              //초당 목표 회전속도
+    [Delayed] public float torque = 1f;                       //토크값
+    [Delayed] public float damping = 0.01f;                   //회전 저항값
 
     private bool isOnForward = false;               //정방향 전류On
     private bool isOnBackward = false;              //역방향 전류On
@@ -87,6 +87,19 @@ public class ACMotorController : MonoBehaviour
             }
         }
     }
-
-    
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (shaft != null)
+        {
+            shaft.motor = new JointMotor()
+            {
+                targetVelocity = this.targetVelocity,
+                force = this.torque,
+                freeSpin = false
+            };
+            shaft.axis = torqueAxis;
+        }
+    }
+#endif 
 }
